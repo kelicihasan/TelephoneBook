@@ -1,0 +1,14 @@
+﻿using System.Linq.Expressions;
+using Report.API.Models;
+
+namespace Report.API.Services.Abstract
+{
+    public interface IReportDetailService
+    {
+        Task<List<ReportDetail>> GetAll();
+        Task<ReportDetail> GetById(Guid id);
+        void Create(ReportDetail entity);
+        Task BulkCreate(List<ReportDetail> entity);
+        Task<List<ReportDetail>> GetAllById(Guid id);
+    }
+}
