@@ -1,6 +1,6 @@
-﻿using Report.API.Services.Abstract;
+﻿using Report.Application.Services.Abstract;
 
-namespace Report.API.Repositories.Abstract
+namespace Report.Application.Repositories.Abstract
 {
     public interface IUnitOfWork
     {

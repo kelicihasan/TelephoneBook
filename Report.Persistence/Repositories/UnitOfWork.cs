@@ -1,7 +1,7 @@
-﻿using Report.API.Repositories.Abstract;
-using Report.API.Services.Abstract;
+﻿using Report.Application.Repositories.Abstract;
+using Report.Application.Services.Abstract;
 
-namespace Report.API.Repositories
+namespace Report.Persistence.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

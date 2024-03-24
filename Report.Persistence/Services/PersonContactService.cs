@@ -1,9 +1,9 @@
-﻿using Report.API.Dtos.Report;
-using Report.API.Models;
-using Report.API.Repositories;
-using Report.API.Services.Abstract;
+﻿using Report.Application.Dtos.Report;
+using Report.Application.Services.Abstract;
+using Report.Domain.Entities;
+using Report.Persistence.Repositories;
 
-namespace Report.API.Services
+namespace Report.Persistence.Services
 {
     public class PersonContactService : MongoGenericRepository<PersonContact>, IPersonContactService
     {

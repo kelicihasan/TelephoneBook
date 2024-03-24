@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Report.API.Models
+namespace Report.Domain.Entities
 {
     public class PersonContact
     {

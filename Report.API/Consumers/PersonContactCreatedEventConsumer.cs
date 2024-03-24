@@ -1,7 +1,7 @@
 ﻿using MassTransit;
+using Report.Application.Services.Abstract;
+using Report.Domain.Entities;
 using Shared.Events;
-using Report.API.Models;
-using Report.API.Services.Abstract;
 
 namespace Report.API.Consumers
 {
