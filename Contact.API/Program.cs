@@ -1,4 +1,3 @@
-using Contact.Application.Models;
 using Contact.Application.Repositories;
 using Contact.Application.Repositories.Abstract;
 using Contact.Application.Services;

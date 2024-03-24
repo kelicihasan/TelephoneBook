@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
-using Report.API.Models;
+using Report.Domain.Entities;
 
-namespace Report.API.Services.Abstract
+namespace Report.Application.Services.Abstract
 {
     public interface IReportDetailService
     {

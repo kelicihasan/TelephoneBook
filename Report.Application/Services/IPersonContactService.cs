@@ -1,8 +1,7 @@
-﻿using System.Linq.Expressions;
-using Report.API.Dtos.Report;
-using Report.API.Models;
+﻿using Report.Application.Dtos.Report;
+using Report.Domain.Entities;
 
-namespace Report.API.Services.Abstract
+namespace Report.Application.Services.Abstract
 {
     public interface IPersonContactService
     {

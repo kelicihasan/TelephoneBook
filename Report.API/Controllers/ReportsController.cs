@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Report.API.Services.Abstract;
+using Report.Application.Services.Abstract;
 
 namespace Report.API.Controllers
 {

@@ -1,8 +1,8 @@
 ﻿using MassTransit;
+using Report.Application.Services.Abstract;
+using Report.Domain.Entities;
+using Report.Domain.Enums;
 using Shared.Events;
-using Report.API.Enums;
-using Report.API.Models;
-using Report.API.Services.Abstract;
 
 namespace Report.API.Consumers
 {
@@ -35,12 +35,8 @@ namespace Report.API.Consumers
 
             });
             await _reportDetailService.BulkCreate(reportDetail);
-
-
             var report = await _reportService.GetById(context.Message.ReportId);
             report.ReportState = nameof(ReportStatus.Tamamlandi);
-
-
             await _reportService.Update(report, x => x.Id == report.Id);
         }
     }

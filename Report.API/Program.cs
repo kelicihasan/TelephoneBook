@@ -1,29 +1,20 @@
-using FluentValidation.AspNetCore;
 using MassTransit;
-using Microsoft.Extensions.Options;
+using Report.API.Consumers;
+using Report.Application.Services.Abstract;
+using Report.Persistence.Services;
 using Shared;
 using System.Reflection;
-using Report.API.Consumers;
-using Report.API.Services;
-using Report.API.Services.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers()
-.AddFluentValidation(v =>
-{
-    v.ImplicitlyValidateChildProperties = true;
-    v.ImplicitlyValidateRootCollectionElements = true;
-    v.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-});
-
+builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMassTransit(config =>
 {
     config.AddConsumer<PersonContactCreatedEventConsumer>();

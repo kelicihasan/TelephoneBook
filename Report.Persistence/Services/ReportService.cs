@@ -1,29 +1,24 @@
 ﻿using AutoMapper;
 using MassTransit;
+using Report.Application.Services.Abstract;
+using Report.Domain.Enums;
+using Report.Persistence.Repositories;
 using Shared.Events;
 using System.Linq.Expressions;
-using Report.API.Dtos.Report;
-using Report.API.Enums;
-using Report.API.Models;
-using Report.API.Repositories;
-using Report.API.Services.Abstract;
 
-namespace Report.API.Services
+namespace Report.Persistence.Services
 {
-    public class ReportService : MongoGenericRepository<Report.API.Models.Report>, IReportService
+    public class ReportService : MongoGenericRepository<Report.Domain.Entities.Report>, IReportService
     {
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IPublishEndpoint _publishEndpoint;
         public ReportService(IMapper mapper,
-            IConfiguration configuration,
             IPublishEndpoint publishEndpoint)
         {
             _mapper = mapper;
-            _configuration = configuration;
             _publishEndpoint = publishEndpoint;
         }
-        public async Task<Report.API.Models.Report> Create()
+        public async Task<Report.Domain.Entities.Report> Create()
         {
             var reportId = await CreateReport();
 
@@ -37,7 +32,7 @@ namespace Report.API.Services
             return await result;
         }
 
-        public async Task<Report.API.Models.Report> GetById(Guid id)
+        public async Task<Report.Domain.Entities.Report> GetById(Guid id)
         {
             var report = base.GetById(x => x.Id == id);
             if (report == null)
@@ -46,7 +41,7 @@ namespace Report.API.Services
             return await report;
         }
 
-        public new async Task<List<Report.API.Models.Report>> GetAll()
+        public new async Task<List<Report.Domain.Entities.Report>> GetAll()
         {
             var reportList = await base.GetAll().ConfigureAwait(false);
             if (reportList == null)
@@ -55,7 +50,7 @@ namespace Report.API.Services
             return reportList.ToList();
         }
 
-        public new async Task Update(Report.API.Models.Report entity, Expression<Func<Report.API.Models.Report, bool>> predicate)
+        public new async Task Update(Report.Domain.Entities.Report entity, Expression<Func<Report.Domain.Entities.Report, bool>> predicate)
         {
             if (entity == null)
                 throw new Exception("Güncelleme yapılacak rapor bulunamadı");
@@ -66,7 +61,7 @@ namespace Report.API.Services
         private async Task<Guid> CreateReport()
         {
             var reportId = Guid.NewGuid();
-            var report = new Report.API.Models.Report
+            var report = new Report.Domain.Entities.Report
             {
                 Id = reportId,
                 ReportState = ReportStatus.Hazirlaniyor.ToString(),

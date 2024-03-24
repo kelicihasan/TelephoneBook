@@ -1,4 +1,4 @@
-﻿namespace Report.API.Dtos.Report
+﻿namespace Report.Application.Dtos.Report
 {
     public class ReportDto
     {

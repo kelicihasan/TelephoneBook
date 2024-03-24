@@ -1,8 +1,8 @@
 ﻿using MongoDB.Driver;
+using Report.Application.Repositories.Abstract;
 using System.Linq.Expressions;
-using Report.API.Repositories.Abstract;
 
-namespace Report.API.Repositories
+namespace Report.Persistence.Repositories
 {
     public abstract class MongoGenericRepository<T> : IMongoGenericRepository<T> where T : class
     {

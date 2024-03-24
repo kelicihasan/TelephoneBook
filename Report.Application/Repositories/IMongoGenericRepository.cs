@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Report.API.Repositories.Abstract
+namespace Report.Application.Repositories.Abstract
 {
     public interface IMongoGenericRepository<T> where T :class
     {
