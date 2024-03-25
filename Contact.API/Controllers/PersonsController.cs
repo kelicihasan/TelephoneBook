@@ -52,7 +52,7 @@ namespace Contact.API.Controllers
         /// Get Person List
         /// </summary>
         /// <returns></returns>
-        [HttpGet("get-all-person")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var personList = await _personService.GetAllPerson();
@@ -67,7 +67,7 @@ namespace Contact.API.Controllers
         /// </summary>
         /// <param name="personId"></param>
         /// <returns></returns>
-        [HttpDelete("delete-person-contract/{personId}")]
+        [HttpDelete("{personId}/delete-person-contract")]
         public async Task<IActionResult> DeletePersonContact(Guid personId)
         {
             var isProductCreated = await _personService.RemovePersonContactByPersonId(personId);
@@ -99,7 +99,7 @@ namespace Contact.API.Controllers
         /// </summary>
         /// <param name="personId"></param>
         /// <returns></returns>
-        [HttpGet("get-person-contracts/{personId}")]
+        [HttpGet("{personId}/get-person-contracts")]
         public async Task<IActionResult> GetPersonContactsByPersonId(Guid personId)
         {
             var result = await _personService.GetPersonContactsByPersonId(personId);
