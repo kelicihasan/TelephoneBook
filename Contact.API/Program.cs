@@ -19,11 +19,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ContactDbContext>(opt =>
         opt.UseNpgsql(builder.Configuration.GetConnectionString("MyWebApiConection")));
 
+
+
 builder.Services.AddMassTransit(config =>
 {
     config.UsingRabbitMq((context, _config) =>
     {
-        _config.Host(new Uri(builder.Configuration["RabbitMq"]));
+        _config.Host(builder.Configuration.GetSection("RabbitMq")["HostName"]);
+        _config.UseCircuitBreaker(configurator =>
+        {
+            configurator.TrackingPeriod = TimeSpan.FromMinutes(1);
+            configurator.TripThreshold = 15;
+            configurator.ActiveThreshold = 10;
+            configurator.ResetInterval = TimeSpan.FromMinutes(5);
+        });
     });
 });
 
@@ -42,7 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

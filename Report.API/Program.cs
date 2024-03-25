@@ -21,9 +21,16 @@ builder.Services.AddMassTransit(config =>
     config.AddConsumer<ReportCreatedEventConsumer>();
     config.UsingRabbitMq((context, _config) =>
     {
-        _config.Host(new Uri(builder.Configuration["RabbitMq"]));
+        _config.Host(builder.Configuration.GetSection("RabbitMq")["HostName"]);
         _config.ReceiveEndpoint(RabbitMQSettings.ReportCreatedEventQueue, x => x.ConfigureConsumer<PersonContactCreatedEventConsumer>(context));
         _config.ReceiveEndpoint(RabbitMQSettings.ReportCreateEventQueue, x => x.ConfigureConsumer<ReportCreatedEventConsumer>(context));
+        _config.UseCircuitBreaker(configurator =>
+        {
+            configurator.TrackingPeriod = TimeSpan.FromMinutes(1);
+            configurator.TripThreshold = 15;
+            configurator.ActiveThreshold = 10;
+            configurator.ResetInterval = TimeSpan.FromMinutes(5);
+        });
     });
 });
 

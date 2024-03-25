@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  postgres3:
+    image: postgres
+
+  mongo3:
+    image: mongo
+
+  rabbitmq :
+    image: rabbitmq:3-management
+   
+
+  contact.api:
+    image: ${DOCKER_REGISTRY-}contactapi
+    build:
+      context: .
+      dockerfile: Contact.API/Dockerfile
+
+  report.api:
+    image: ${DOCKER_REGISTRY-}reportapi
+    build:
+      context: .
+      dockerfile: Report.API/Dockerfile
+
