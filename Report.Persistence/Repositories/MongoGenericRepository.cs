@@ -1,5 +1,7 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using Report.Application.Repositories.Abstract;
+using Shared.Settings;
 using System.Linq.Expressions;
 
 namespace Report.Persistence.Repositories
@@ -7,12 +9,13 @@ namespace Report.Persistence.Repositories
     public abstract class MongoGenericRepository<T> : IMongoGenericRepository<T> where T : class
     {
         protected readonly IMongoCollection<T> Collection;
-
-        public MongoGenericRepository()
+        private readonly MongoDbSettings _mongoDbSettings;
+        public MongoGenericRepository(IOptions<MongoDbSettings> options)
         {
+            _mongoDbSettings = options.Value;
             // connectionString
-            var client = new MongoClient("mongodb://localhost:27017");
-            var db = client.GetDatabase("ReportDb");
+            var client = new MongoClient(_mongoDbSettings.MongoDB);
+            var db = client.GetDatabase(_mongoDbSettings.Database);
 
             Collection = db.GetCollection<T>(typeof(T).Name.ToLower());
         }

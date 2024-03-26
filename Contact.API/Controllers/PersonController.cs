@@ -7,11 +7,11 @@ namespace Contact.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PersonsController : ControllerBase
+    public class PersonController : ControllerBase
     {
         public readonly IPersonService _personService;
         public readonly IContactService _contactService;
-        public PersonsController(IPersonService personService, IContactService contactService)
+        public PersonController(IPersonService personService, IContactService contactService)
         {
             _personService = personService;
             _contactService = contactService;
@@ -42,10 +42,7 @@ namespace Contact.API.Controllers
         {
             var isPersonCreated = await _personService.DeletePerson(personId);
 
-            if (isPersonCreated)
-                return Ok(new { IsSucceed = isPersonCreated });
-            else
-                return BadRequest();
+            return Ok(isPersonCreated);
         }
 
         /// <summary>
@@ -57,7 +54,7 @@ namespace Contact.API.Controllers
         {
             var personList = await _personService.GetAllPerson();
             if (personList == null)
-                return NotFound(new { Error = "Kişi listesinde veri bulunamadı" });
+                return NotFound(new { IsSucceed = false });
 
             return Ok(personList);
         }
@@ -67,7 +64,7 @@ namespace Contact.API.Controllers
         /// </summary>
         /// <param name="personId"></param>
         /// <returns></returns>
-        [HttpDelete("{personId}/delete-person-contract")]
+        [HttpDelete("{personId}/contract")]
         public async Task<IActionResult> DeletePersonContact(Guid personId)
         {
             var isProductCreated = await _personService.RemovePersonContactByPersonId(personId);
@@ -89,9 +86,9 @@ namespace Contact.API.Controllers
             var isContactCreated = await _contactService.CreateContact(request);
 
             if (isContactCreated)
-                return Ok(new { Error = "iletisim Bilgisi Başarıyla oluşturuldu" });
+                return Ok(new { IsSucceed = true });
             else
-                return BadRequest(new { Error = "iletisim Bilgisi oluşturulurken hata ile karşılaşıldı" });
+                return BadRequest(new { IsSucceed = false });
         }
 
         /// <summary>
@@ -99,7 +96,7 @@ namespace Contact.API.Controllers
         /// </summary>
         /// <param name="personId"></param>
         /// <returns></returns>
-        [HttpGet("{personId}/get-person-contracts")]
+        [HttpGet("{personId}/contract")]
         public async Task<IActionResult> GetPersonContactsByPersonId(Guid personId)
         {
             var result = await _personService.GetPersonContactsByPersonId(personId);

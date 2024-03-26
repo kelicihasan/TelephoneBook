@@ -25,14 +25,14 @@ namespace Contact.Persistence.Repositories
             return data;
         }
 
-        public async Task<int> RemovePersonContactByPersonId(Guid personId)
+        public async Task<bool> RemovePersonContactByPersonId(Guid personId)
         {
             var data = await base._dbContext.ContactInfo
                 .Where(x => x.PersonId == personId)
                 .FirstAsync();
 
             _dbContext.ContactInfo.Remove(data);
-            return _dbContext.SaveChanges();
+            return Convert.ToBoolean(_dbContext.SaveChanges());
         }
     }
 }

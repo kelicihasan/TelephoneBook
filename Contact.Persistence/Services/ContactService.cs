@@ -35,9 +35,7 @@ namespace Contact.Persistence.Services
 
             await PersonContactCreatedEventTrigger(requestDto);
 
-            if (result > 0)
-                return true;
-            return false;
+            return result;
         }
         private async Task PersonContactCreatedEventTrigger(ContactCreateRequestDto requestDto)
         {

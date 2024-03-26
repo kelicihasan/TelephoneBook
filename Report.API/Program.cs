@@ -3,7 +3,7 @@ using Report.API.Consumers;
 using Report.Application.Services.Abstract;
 using Report.Persistence.Services;
 using Shared;
-using System.Reflection;
+using Shared.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +21,11 @@ builder.Services.AddMassTransit(config =>
     config.AddConsumer<ReportCreatedEventConsumer>();
     config.UsingRabbitMq((context, _config) =>
     {
-        _config.Host(builder.Configuration.GetSection("RabbitMq")["HostName"]);
+        _config.Host(builder.Configuration.GetSection("RabbitMq:HostName").Value, cfg =>
+        {
+            cfg.Username("guest");
+            cfg.Password("guest");
+        });
         _config.ReceiveEndpoint(RabbitMQSettings.ReportCreatedEventQueue, x => x.ConfigureConsumer<PersonContactCreatedEventConsumer>(context));
         _config.ReceiveEndpoint(RabbitMQSettings.ReportCreateEventQueue, x => x.ConfigureConsumer<ReportCreatedEventConsumer>(context));
         _config.UseCircuitBreaker(configurator =>
@@ -39,6 +43,10 @@ builder.Services.AddScoped<IPersonContactService, PersonContactService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IReportDetailService, ReportDetailService>();
 
+#region Options
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,7 +56,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

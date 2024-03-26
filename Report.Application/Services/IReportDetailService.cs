@@ -7,7 +7,6 @@ namespace Report.Application.Services.Abstract
     {
         Task<List<ReportDetail>> GetAll();
         Task<ReportDetail> GetById(Guid id);
-        void Create(ReportDetail entity);
         Task BulkCreate(List<ReportDetail> entity);
         Task<List<ReportDetail>> GetAllById(Guid id);
     }

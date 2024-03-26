@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MassTransit;
+using Microsoft.Extensions.Options;
 using Report.Application.Services.Abstract;
 using Report.Domain.Enums;
 using Report.Persistence.Repositories;
 using Shared.Events;
+using Shared.Settings;
 using System.Linq.Expressions;
 
 namespace Report.Persistence.Services
@@ -13,11 +15,13 @@ namespace Report.Persistence.Services
         private readonly IMapper _mapper;
         private readonly IPublishEndpoint _publishEndpoint;
         public ReportService(IMapper mapper,
-            IPublishEndpoint publishEndpoint)
+            IPublishEndpoint publishEndpoint,
+            IOptions<MongoDbSettings> options) : base(options)
         {
             _mapper = mapper;
             _publishEndpoint = publishEndpoint;
         }
+
         public async Task<Report.Domain.Entities.Report> Create()
         {
             var reportId = await CreateReport();

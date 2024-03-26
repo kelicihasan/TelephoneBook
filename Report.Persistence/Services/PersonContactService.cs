@@ -1,12 +1,18 @@
-﻿using Report.Application.Dtos.Report;
+﻿using Microsoft.Extensions.Options;
+using Report.Application.Dtos.Report;
 using Report.Application.Services.Abstract;
 using Report.Domain.Entities;
 using Report.Persistence.Repositories;
+using Shared.Settings;
 
 namespace Report.Persistence.Services
 {
     public class PersonContactService : MongoGenericRepository<PersonContact>, IPersonContactService
     {
+        public PersonContactService(IOptions<MongoDbSettings> options) : base(options)
+        {
+        }
+
         public async Task Create(PersonContact entity)
         {
            await base.InsertAsync(entity);

@@ -1,21 +1,22 @@
-﻿using Report.Application.Services.Abstract;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+using Report.Application.Services.Abstract;
 using Report.Domain.Entities;
 using Report.Persistence.Repositories;
+using Shared.Settings;
 
 namespace Report.Persistence.Services
 {
     public class ReportDetailService : MongoGenericRepository<ReportDetail>, IReportDetailService
     {
+        public ReportDetailService(IOptions<MongoDbSettings> options) : base(options)
+        {
+        }
+
         public async Task BulkCreate(List<ReportDetail> entity)
         {
-           await base.BulkInsert(entity);
+            await base.BulkInsert(entity);
         }
-
-        public void Create(ReportDetail entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ReportDetail> GetById(Guid id)
         {
             var report = base.GetById(x => x.Id == id);
@@ -27,7 +28,7 @@ namespace Report.Persistence.Services
 
         public new async Task<List<ReportDetail>> GetAll()
         {
-            var reportList = await base.GetAll().ConfigureAwait(false);
+            var reportList = base.GetAll().Result.ToList();
             if (reportList == null)
                 throw new Exception("Rapor bulunamadı");
 
@@ -39,7 +40,7 @@ namespace Report.Persistence.Services
             if (report == null)
                 throw new Exception("Rapor Bilgisi bulunamadı");
 
-            return  report;
+            return report;
         }
     }
 }
