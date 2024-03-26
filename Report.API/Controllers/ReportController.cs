@@ -5,11 +5,11 @@ namespace Report.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReportsController : ControllerBase
+    public class ReportController : ControllerBase
     {
         private readonly IReportService _reportService;
         private readonly IReportDetailService _reportDetailService;
-        public ReportsController(IReportService reportService, 
+        public ReportController(IReportService reportService, 
             IReportDetailService reportDetailService)
         {
             _reportService = reportService;
@@ -20,7 +20,7 @@ namespace Report.API.Controllers
         /// Add a new Report
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> Create()
         {
             var data = await _reportService.Create();
@@ -33,7 +33,7 @@ namespace Report.API.Controllers
         /// Get All Report
         /// </summary>
         /// <returns></returns>
-        [HttpGet("get-all-report")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             var data = await _reportService.GetAll();
@@ -75,7 +75,7 @@ namespace Report.API.Controllers
         /// Get Report Detail By Id
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id}/get-all-report-detail")]
+        [HttpGet("{id}/get-report-detail")]
         public async Task<IActionResult> GetDetailById(Guid id)
         {
             var data = await _reportDetailService.GetAllById(id);

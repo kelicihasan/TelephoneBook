@@ -26,10 +26,7 @@ namespace Contact.Persistence.Services
 
             var result = _unitOfWork.Save();
 
-            if (result > 0)
-                return true;
-            else
-                return false;
+            return result;
         }
 
         public async Task<bool> DeletePerson(Guid personId)
@@ -44,10 +41,7 @@ namespace Contact.Persistence.Services
             _unitOfWork.Person.Delete(personDetails);
             var result = _unitOfWork.Save();
 
-            if (result > 0)
-                return true;
-            else
-                return false;
+            return result;
         }
 
         public async Task<IEnumerable<GetPersonDto>> GetAllPerson()
@@ -64,10 +58,7 @@ namespace Contact.Persistence.Services
         public async Task<bool> RemovePersonContactByPersonId(Guid personId)
         {
             var result = await _unitOfWork.Person.RemovePersonContactByPersonId(personId);
-
-            if (result > 0)
-                return true;
-            return false;
+            return result;
         }
 
         public async Task<IEnumerable<Person>> GetPersonContactsByPersonId(Guid personId)

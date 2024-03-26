@@ -8,7 +8,7 @@ services:
       - ${WEBAPP_STORAGE_HOME}/site:/data/db
       #- ./data:/data/db
     environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
+       - POSTGRES_HOST_AUTH_METHOD=trust
        - POSTGRES_USER=postgres
        - POSTGRES_DB=testDb
     ports:
@@ -19,7 +19,6 @@ services:
     restart: always
     volumes:
      - ${WEBAPP_STORAGE_HOME}/site:/data/db
-     #- ./data:/data/db
     ports:
      - "27017:27017"
    
@@ -53,10 +52,23 @@ services:
     - "MongoDbSettings:MongoDB=mongodb://mongo3:27017"
     - "RabbitMq:HostName=rabbitmq"
    depends_on: 
-    - mongo3
-    - rabbitmq
+     - mongo3
+     - rabbitmq
+   volumes:
+     - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+     - ${HOME}/ASP.NET/Https:/root/.aspnet/https:ro
    ports:
     - "8001:80"
-   volumes:
+
+  apigateway:
+    container_name: apigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+    - contact.api
+    - report.api
+    ports:
+      - "5000:80"
+    volumes:
       - ${HOME}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${HOME}/ASP.NET/Https:/root/.aspnet/https:ro

@@ -1,34 +1,121 @@
 {
-  "RouteIsCaseSensitive": "false", // UPSTREAM TARAFINDAN GELEN KELİMELERİN BÜYÜK KÜÇÜK HARF DUYARLILIĞI
+  "RouteIsCaseSensitive": "false",
   "Routes": [
+    /*Person-Contact*/
     {
       "DownstreamPathTemplate": "/api/Persons/create-person",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 44312
+          "Host": "contactservice",
+          "Port": "80"
         }
       ],
       "UpstreamPathTemplate": "/Persons/Create",
       "UpstreamHttpMethod": [ "POST" ]
     },
     {
-      "DownstreamPathTemplate": "/api/Persons/create-person",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/api/Person/{id}",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "contactservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Person/Delete/{id}",
+      "UpstreamHttpMethod": [ "Delete" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Person",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contactservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Person/All",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Person/create-contact",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contactservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Person/Contract",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Person/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "contactservice",
           "Port": 44312
         }
       ],
-      "UpstreamPathTemplate": "/Persons/Create",
-      "UpstreamHttpMethod": [ "POST" ]
-    }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5005"
-  }
-}
+      "UpstreamPathTemplate": "/Person/Contract/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+    /*Person-Contact*/
 
-//https://medium.com/aspnetrun/building-ocelot-api-gateway-microservices-with-asp-net-core-and-docker-container-13f96026e86c
+    /*Report*/
+    {
+      "DownstreamPathTemplate": "/api/Report",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Report",
+      "UpstreamHttpMethod": [ "POST", "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Report/Get/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report/get-all-report-detail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Report/All",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Report/{id}/get-report-detail",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reportservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Report/Detail/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    }
+  ]
+  //"GlobalConfiguration": {
+  //  "BaseUrl": "http://localhost:5005"
+  //}
+}
+/*Report*/

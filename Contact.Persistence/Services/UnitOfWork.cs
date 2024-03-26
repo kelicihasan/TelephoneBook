@@ -18,9 +18,9 @@ namespace Contact.Persistence.Services
             Person = _Person;
             Contact = _Contact;
         }
-        public int Save()
+        public bool Save()
         {
-            return _dbContext.SaveChanges();
+            return Convert.ToBoolean(_dbContext.SaveChanges());
         }
 
         public void Dispose()

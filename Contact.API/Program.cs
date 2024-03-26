@@ -6,6 +6,7 @@ using Contact.Persistence.Repositories;
 using Contact.Persistence.Services;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,7 +26,11 @@ builder.Services.AddMassTransit(config =>
 {
     config.UsingRabbitMq((context, _config) =>
     {
-        _config.Host(builder.Configuration.GetSection("RabbitMq")["HostName"]);
+        _config.Host(builder.Configuration.GetSection("RabbitMq:HostName").Value, cfg =>
+        {
+            cfg.Username("guest");
+            cfg.Password("guest");
+        });
         _config.UseCircuitBreaker(configurator =>
         {
             configurator.TrackingPeriod = TimeSpan.FromMinutes(1);

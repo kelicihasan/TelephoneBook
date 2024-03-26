@@ -7,6 +7,6 @@ namespace Contact.Application.Services
     {
         IPersonRepository Person { get; }
         IContactRepository Contact { get; }
-        int Save();
+        bool Save();
     }
 }

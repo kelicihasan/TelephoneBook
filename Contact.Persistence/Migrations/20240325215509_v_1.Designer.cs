@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Contact.Persistence.Migrations
 {
     [DbContext(typeof(ContactDbContext))]
-    [Migration("20240325052120_v_1")]
+    [Migration("20240325215509_v_1")]
     partial class v_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

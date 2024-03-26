@@ -6,6 +6,6 @@ namespace Contact.Application.Repositories
     public interface IPersonRepository : IGenericRepository<Person>
     {
         Task<IEnumerable<Person>> GetPersonContactsByPersonId(Guid personId);
-        Task<int> RemovePersonContactByPersonId(Guid personId);
+        Task<bool> RemovePersonContactByPersonId(Guid personId);
     }
 }

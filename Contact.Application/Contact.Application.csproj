@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Contact.Domain\Contact.Domain.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>
