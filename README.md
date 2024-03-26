@@ -1,5 +1,5 @@
  Kullanılan Teknolojiler : 
- C#,Net Core,MongoDb,PostgreSql,RabbitMq,MongoDb,MassTransit,Unit Of Work DP,Repository DP,Ocelot,EF Core,AutoMapper,Docker
+ C#,Net Core,Swagger,MongoDb,PostgreSql,RabbitMq,MongoDb,MassTransit,Unit Of Work DP,Repository DP,Ocelot,EF Core,AutoMapper,Docker
 
 http://localhost:5000/
 
