@@ -1,7 +1,7 @@
  Kullanılan Teknolojiler : 
  C#,Net Core,MongoDb,PostgreSql,RabbitMq,MongoDb,MassTransit,Unit Of Work DP,Repository DP,Ocelot,EF Core,AutoMapper,Docker
 
- localhost:5000
+http://localhost:5000/
 
 ![image](https://github.com/kelicihasan/TelephoneBook/assets/39105093/a7b7aece-0e13-4e51-9452-27034446a529)
 
